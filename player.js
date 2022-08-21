@@ -6,7 +6,7 @@ function Player(x,y){
     this.h=40;
     this.go=false;
     this.vilocity=0;
-    this.speed=10; 
+    this.speed=0.1; 
     this.direction=1;
     this.show=()=>{
         fill ("gray");

@@ -4,56 +4,80 @@ let r=100;
 let t=0;
 let canvas;
 let width=500;
-let height=500;
+let height=600;
 let pointSize=20;
 let px=width/2;
-let py=120;
+let py=220;
 let targets=[];
+let target;
+let hittedTarget=[];
+let hittedArrows=[];
 let player;
+let wall=20;
+
+
 function setup() {
   canvas=createCanvas(width,height);
   canvas.id("cnv");
   /// create targets//
   for(let i=0;i<5 ;i++){
-   ;
-    targets.push(new Target(random(2*PI),px,py,r));
+     target =new Target(random(2*PI),px,py,r);
+    targets.push(target);
+    
+    
   }
   //// create player //////
-  player=new Player(width/2,height-60);
+ player=new Player(width/2,height-60);
 
 }
-
 function draw() {
 background(0);
+/**** CREATE WALL***/
+fill("#3E2723");
+rect (0,0,width,wall);
+/////////////////////
   stroke("grey");
   strokeWeight(pointSize);
   point(px,py);
 
   //// parcour targets //////
-  for(let i=0;i<targets.length;i++){
+  for(let i=targets.length-1;i>=0;i--){ 
+     targets[i].show();  
     
-    targets[i].show();
-    if(!targets[i].hit(player)){
-        
+   if(!targets[i].hit(player)) targets[i].update(0.1);
+    else {
+      targets[i].isHit=true;
+      hittedTarget.push(targets[i]);
+      hittedArrows.push(player);
+      targets.splice(i,1);
+      player=new Player(width/2,height-60);
      
-     targets[i].update(0.1);
     }
-    else  {
-        //player.go=false;
-        
-    player.direction=-1;
-    //targets[i].angle=0;
-    //targets[i].down();
-    }; 
-
+    
+  }  
+ 
+  for(let i=0;i<hittedTarget.length;i++){
+    hittedArrows[i].show();
+    hittedTarget[i].show();
+    hittedTarget[i].arrowy=hittedArrows[i].y-hittedArrows[i].tr-hittedTarget[i].pr/2;
+    hittedTarget[i].arrowx=hittedArrows[i].x+hittedArrows[i].w/2;
 
   }
+  /*
+  if(targets[i].arrowy<=targets[i].pr+wall){ 
+    
+     players[players.length-1].y=targets[i].pr+wall;
+     players[players.length-1].vilocity=0;
+      players.push(new Player(width/2,height-60));
+     
+      
+ */
+
   player.show();
+ 
   if(frameCount%300==0){
   random(targets).direction*=-1;
   }
-
-  
 }
 function keyPressed(){
    if(keyCode==32){
