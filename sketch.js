@@ -14,6 +14,8 @@ let hittedTarget=[];
 let hittedArrows=[];
 let player;
 let wall=20;
+let ph=60;
+let n=10;
 
 
 function setup() {
@@ -27,7 +29,7 @@ function setup() {
     
   }
   //// create player //////
- player=new Player(width/2,height-60);
+ player=new Player(width/2,height-ph);
 
 }
 function draw() {
@@ -48,9 +50,12 @@ rect (0,0,width,wall);
     else {
       targets[i].isHit=true;
       hittedTarget.push(targets[i]);
+      player.x=player.x-n;
+      n +=40;
+      console.log(player.x);
       hittedArrows.push(player);
       targets.splice(i,1);
-      player=new Player(width/2,height-60);
+      player=new Player(width/2,height-ph);
      
     }
     
@@ -59,19 +64,16 @@ rect (0,0,width,wall);
   for(let i=0;i<hittedTarget.length;i++){
     hittedArrows[i].show();
     hittedTarget[i].show();
-    hittedTarget[i].arrowy=hittedArrows[i].y-hittedArrows[i].tr-hittedTarget[i].pr/2;
+    hittedTarget[i].arrowy=hittedArrows[i].y-hittedArrows[i].tr;
     hittedTarget[i].arrowx=hittedArrows[i].x+hittedArrows[i].w/2;
-
+    if(hittedTarget[i].arrowy<=hittedTarget[i].pr+wall){
+      hittedArrows[i].y=hittedTarget[i].pr+wall;
+      hittedArrows[i].vilocity=0;
+    }
   }
-  /*
-  if(targets[i].arrowy<=targets[i].pr+wall){ 
-    
-     players[players.length-1].y=targets[i].pr+wall;
-     players[players.length-1].vilocity=0;
-      players.push(new Player(width/2,height-60));
-     
-      
- */
+  if(player.y<-player.h*2){
+    player=new Player(width/2,height-ph);
+  }
 
   player.show();
  

@@ -12,11 +12,14 @@ this.arrowx=100;
 this.arrowy=1000;
 this.b=0;
 this.isHit=false;
+//this.images=["./images/1.jpg","./images/2.jpg","./images/3.jpg"];
+//this.img=loadImage(random (this.images));
 this.show=()=>{
     stroke("tomato");
     strokeWeight(this.pr);
 this.a=(!this.isHit)?(this.raduis*cos(this.angle)+this.centerx):this.arrowx;
 this.b=(!this.isHit)?(this.raduis*sin(this.angle)+this.centery):this.arrowy;
+//image(this.img,this.a,this.b,this.pr*2,this.pr*2);
 point(this.a,this.b);
 }
 this.update=(speed)=>{

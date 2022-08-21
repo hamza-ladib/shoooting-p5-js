@@ -4,9 +4,10 @@ function Player(x,y){
     this.tr=8;
     this.w=10;
     this.h=40;
+    this.n=0;
     this.go=false;
     this.vilocity=0;
-    this.speed=0.1; 
+    this.speed=10; 
     this.direction=1;
     this.show=()=>{
         fill ("gray");
