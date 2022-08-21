@@ -52,7 +52,7 @@ rect (0,0,width,wall);
       hittedTarget.push(targets[i]);
       player.x=player.x-n;
       n +=40;
-      console.log(player.x);
+      
       hittedArrows.push(player);
       targets.splice(i,1);
       player=new Player(width/2,height-ph);
